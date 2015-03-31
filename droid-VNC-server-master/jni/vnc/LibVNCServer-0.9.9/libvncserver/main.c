@@ -1045,6 +1045,9 @@ void rfbScreenCleanup(rfbScreenInfoPtr screen)
 
 void rfbInitServer(rfbScreenInfoPtr screen)
 {
+  printf("**************tina: rfbInitServer begin test \n");//tina add
+  //this is used in "vnc/droidvncserver.c" -> initVncServer()
+
 #ifdef WIN32
   WSADATA trash;
   WSAStartup(MAKEWORD(2,2),&trash);

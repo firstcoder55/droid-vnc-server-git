@@ -192,8 +192,12 @@ void initVncServer(int argc, char **argv)
   vncscr->deferUpdateTime = 5;
 
   rfbInitServer(vncscr);
+  //tina: define in "/vnc/LibVNCServer-0.9.9/libvncserver/main.c"
+
+  L("******************tina: after rfbInitServer(vncscr)\n");//tina add
 
     //assign update_screen depending on bpp
+    //tina add: "#define FUNCTION CONCAT2E(update_screen_,OUT)"  in "jni/vnc/updateScreen.c"
     if (vncscr->serverFormat.bitsPerPixel == 32)
     update_screen=&CONCAT2E(update_screen_,32);
     else if (vncscr->serverFormat.bitsPerPixel == 16)
@@ -211,7 +215,7 @@ void initVncServer(int argc, char **argv)
 
     /* Mark as dirty since we haven't sent any updates at all yet. */
     rfbMarkRectAsModified(vncscr, 0, 0, vncscr->width, vncscr->height);
-    }
+}
 
 
 
@@ -547,11 +551,13 @@ int main(int argc, char **argv)
       screenformat.redMax,screenformat.greenMax,screenformat.blueMax,screenformat.alphaMax);  
 
     initVncServer(argc, argv);
+    L("*****************tina: finish initVncServer \n");//tina add
 
     bindIPCserver();
     sendServerStarted();
 
     if (rhost) {
+      L("****************tina: rhost check");//tina add
       rfbClientPtr cl;
       cl = rfbReverseConnection(vncscr, rhost, rport);
       if (cl == NULL) {

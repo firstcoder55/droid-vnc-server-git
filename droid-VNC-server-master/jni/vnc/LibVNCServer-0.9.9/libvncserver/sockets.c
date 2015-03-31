@@ -119,6 +119,8 @@ rfbInitSockets(rfbScreenInfoPtr rfbScreen)
     rfbScreen->socketState = RFB_SOCKET_READY;
 
     if (rfbScreen->inetdSock != -1) {
+    rfbLog("****************tina: rfbScreen->inetdSock != -1 \n");//tina add
+
 	const int one = 1;
 
         if(!rfbSetNonBlocking(rfbScreen->inetdSock))

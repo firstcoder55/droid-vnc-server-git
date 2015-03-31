@@ -22,7 +22,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 
 void FUNCTION(void)
 {
-	//printf("*******************update_screen test\n");//tina add
+	printf("*******************update_screen test\n");//tina add
     //droid-VNC-server-master/jni/vnc/droidvncserver.c
 	//update_screen();
 	//define here
