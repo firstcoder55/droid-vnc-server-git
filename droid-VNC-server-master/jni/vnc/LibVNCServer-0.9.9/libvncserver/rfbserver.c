@@ -453,6 +453,9 @@ rfbNewTCPOrUDPClient(rfbScreenInfoPtr rfbScreen,
       sprintf(pv,rfbProtocolVersionFormat,rfbScreen->protocolMajorVersion, 
               rfbScreen->protocolMinorVersion);
 
+      printf("*****************tina: pv = %s ", pv);//tina add
+
+      printf("*******************tina: write to client, the RBF Protocol Version \n");//tina add
       if (rfbWriteExact(cl, pv, sz_rfbProtocolVersionMsg) < 0) {
         rfbLogPerror("rfbNewClient: write");
         rfbCloseClient(cl);
@@ -780,6 +783,7 @@ rfbProcessClientInitMessage(rfbClientPtr cl)
     len = strlen(u.buf + sz_rfbServerInitMsg);
     u.si.nameLength = Swap32IfLE(len);
 
+    printf("*******************tina: write to client, the RBF process client init message \n");//tina add
     if (rfbWriteExact(cl, u.buf, sz_rfbServerInitMsg + len) < 0) {
         rfbLogPerror("rfbProcessClientInitMessage: write");
         rfbCloseClient(cl);
@@ -3246,6 +3250,7 @@ rfbSendUpdateBuf(rfbClientPtr cl)
     if(cl->sock<0)
       return FALSE;
 
+//    printf("*******************tina: write to client, the RBF send update buf \n");//tina add
     if (rfbWriteExact(cl, cl->updateBuf, cl->ublen) < 0) {
         rfbLogPerror("rfbSendUpdateBuf: write");
         rfbCloseClient(cl);

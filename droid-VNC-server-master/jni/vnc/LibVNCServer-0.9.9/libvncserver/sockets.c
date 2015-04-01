@@ -442,9 +442,11 @@ rfbProcessNewConnection(rfbScreenInfoPtr rfbScreen)
     if(getnameinfo((struct sockaddr*)&addr, addrlen, host, sizeof(host), NULL, 0, NI_NUMERICHOST) != 0) {
       rfbLogPerror("rfbProcessNewConnection: error in getnameinfo");
     }
-    rfbLog("Got connection from client %s\n", host);
+    //rfbLog("Got connection from client %s\n", host);
+    rfbLog("\nGot connection from client %s\n", host);//tina add
 #else
-    rfbLog("Got connection from client %s\n", inet_ntoa(addr.sin_addr));
+    //rfbLog("Got connection from client %s\n", inet_ntoa(addr.sin_addr));
+    rfbLog("\nGot connection from client %s\n", inet_ntoa(addr.sin_addr));//tina add
 #endif
 
     rfbNewClient(rfbScreen,sock);
@@ -721,13 +723,14 @@ rfbWriteExact(rfbClientPtr cl,
     int totalTimeWaited = 0;
     const int timeout = (cl->screen && cl->screen->maxClientWait) ? cl->screen->maxClientWait : rfbMaxClientWait;
 
-#undef DEBUG_WRITE_EXACT
-#ifdef DEBUG_WRITE_EXACT
+//#undef DEBUG_WRITE_EXACT //tina change
+#define DEBUG_WRITE_EXACT //tina add
+#ifdef DEBUG_WRITE_EXACT //tina change
     rfbLog("WriteExact %d bytes\n",len);
     for(n=0;n<len;n++)
 	    fprintf(stderr,"%02x ",(unsigned char)buf[n]);
     fprintf(stderr,"\n");
-#endif
+#endif //tina change
 
 #ifdef LIBVNCSERVER_WITH_WEBSOCKETS
     if (cl->wsctx) {
@@ -748,7 +751,7 @@ rfbWriteExact(rfbClientPtr cl,
 	else
 #endif
 	    n = write(sock, buf, len);
-
+        
         if (n > 0) {
 
             buf += n;

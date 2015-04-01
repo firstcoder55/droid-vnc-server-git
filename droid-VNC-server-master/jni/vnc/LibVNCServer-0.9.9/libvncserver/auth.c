@@ -160,6 +160,7 @@ rfbVncAuthNone(rfbClientPtr cl)
     if (cl->protocolMajorVersion==3 && cl->protocolMinorVersion > 7 && cl->protocolMinorVersion != 889) {
         rfbLog("rfbProcessClientSecurityType: returning securityResult for client rfb version >= 3.8\n");
         authResult = Swap32IfLE(rfbVncAuthOK);
+        printf("*******************tina: write to client, the RBF authentication result \n");//tina add
         if (rfbWriteExact(cl, (char *)&authResult, 4) < 0) {
             rfbLogPerror("rfbAuthProcessClientMessage: write");
             rfbCloseClient(cl);
@@ -227,6 +228,7 @@ rfbSendSecurityTypeList(rfbClientPtr cl, int primaryType)
     buffer[0] = (unsigned char)size-1;
 
     /* Send the list. */
+    printf("*******************tina: write to client, the RBF send security type list  \n");//tina add
     if (rfbWriteExact(cl, (char *)buffer, size) < 0) {
 	rfbLogPerror("rfbSendSecurityTypeList: write");
 	rfbCloseClient(cl);
@@ -262,6 +264,7 @@ rfbSendSecurityType(rfbClientPtr cl, int32_t securityType)
 
     /* Send the value. */
     value32 = Swap32IfLE(securityType);
+    printf("*******************tina: write to client, the security type \n");//tina add
     if (rfbWriteExact(cl, (char *)&value32, 4) < 0) {
 	rfbLogPerror("rfbSendSecurityType: write");
 	rfbCloseClient(cl);

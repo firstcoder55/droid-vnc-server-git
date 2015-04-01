@@ -362,81 +362,6 @@ void initGrabberMethod()
   //*************end of tina add************
 }
 
-//**************tina add******************
-//copy from "jni/vnc/LibVNCServer-0.9.9/examples/android/jni/fbvncserver.c"
-#if 0
-static void update_screen(void)
-{
-	unsigned int *f, *c, *r;
-	int x, y;
-
-	varblock.min_i = varblock.min_j = 9999;
-	varblock.max_i = varblock.max_j = -1;
-
-	f = (unsigned int *)fbmmap;        /* -> framebuffer         */
-	c = (unsigned int *)fbbuf;         /* -> compare framebuffer */
-	r = (unsigned int *)vncbuf;        /* -> remote framebuffer  */
-
-	for (y = 0; y < scrinfo.yres; y++)
-	{
-		/* Compare every 2 pixels at a time, assuming that changes are likely
-		 * in pairs. */
-		for (x = 0; x < scrinfo.xres; x += 2)
-		{
-			unsigned int pixel = *f;
-
-			if (pixel != *c)
-			{
-				*c = pixel;
-
-				/* XXX: Undo the checkered pattern to test the efficiency
-				 * gain using hextile encoding. */
-				if (pixel == 0x18e320e4 || pixel == 0x20e418e3)
-					pixel = 0x18e318e3;
-
-				*r = PIXEL_FB_TO_RFB(pixel,
-				  varblock.r_offset, varblock.g_offset, varblock.b_offset);
-
-				if (x < varblock.min_i)
-					varblock.min_i = x;
-				else
-				{
-					if (x > varblock.max_i)
-						varblock.max_i = x;
-
-					if (y > varblock.max_j)
-						varblock.max_j = y;
-					else if (y < varblock.min_j)
-						varblock.min_j = y;
-				}
-			}
-
-			f++, c++;
-			r++;
-		}
-	}
-
-	if (varblock.min_i < 9999)
-	{
-		if (varblock.max_i < 0)
-			varblock.max_i = varblock.min_i;
-
-		if (varblock.max_j < 0)
-			varblock.max_j = varblock.min_j;
-
-		fprintf(stderr, "Dirty page: %dx%d+%d+%d...\n",
-		  (varblock.max_i+2) - varblock.min_i, (varblock.max_j+1) - varblock.min_j,
-		  varblock.min_i, varblock.min_j);
-
-		rfbMarkRectAsModified(vncscr, varblock.min_i, varblock.min_j,
-		  varblock.max_i + 2, varblock.max_j + 1);
-
-		rfbProcessEvents(vncscr, 10000);
-	}
-}
-#endif
-//**************end of tina add***********
-
 void printUsage(char **argv)
 {
   L("\nandroidvncserver [parameters]\n"
@@ -449,9 +374,6 @@ void printUsage(char **argv)
     "-s <scale>\t- Scale percentage (20,30,50,100,150)\n"
     "-z\t- Rotate display 180º (for zte compatibility)\n\n");
 }
-
-
-
 
 int main(int argc, char **argv)
 {
@@ -592,7 +514,7 @@ int main(int argc, char **argv)
         continue;
       }
 
-      update_screen(); 
+      //update_screen();
       //tina add. update_screen() defines in "jni/vnc/update_screen.c"
       //printf ( "%f\n", ( (double)clock() - start )*1000 / CLOCKS_PER_SEC );
     }
