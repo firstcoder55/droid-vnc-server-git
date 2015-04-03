@@ -514,7 +514,7 @@ int main(int argc, char **argv)
         continue;
       }
 
-      //update_screen();
+      update_screen();
       //tina add. update_screen() defines in "jni/vnc/update_screen.c"
       //printf ( "%f\n", ( (double)clock() - start )*1000 / CLOCKS_PER_SEC );
     }

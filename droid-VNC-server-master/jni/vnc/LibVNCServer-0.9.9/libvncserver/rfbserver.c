@@ -453,9 +453,7 @@ rfbNewTCPOrUDPClient(rfbScreenInfoPtr rfbScreen,
       sprintf(pv,rfbProtocolVersionFormat,rfbScreen->protocolMajorVersion, 
               rfbScreen->protocolMinorVersion);
 
-      printf("*****************tina: pv = %s ", pv);//tina add
-
-      printf("*******************tina: write to client, the RBF Protocol Version \n");//tina add
+      printf("*******************tina: write to client, the RBF Protocol Version, pv = %s ", pv);//tina add
       if (rfbWriteExact(cl, pv, sz_rfbProtocolVersionMsg) < 0) {
         rfbLogPerror("rfbNewClient: write");
         rfbCloseClient(cl);
@@ -1893,6 +1891,8 @@ rfbProcessClientNormalMessage(rfbClientPtr cl)
         return;
     }
 
+
+    printf("*******************tina: get from client msg.type = %d \n", msg.type);//tina add
     switch (msg.type) {
 
     case rfbSetPixelFormat:
@@ -3250,7 +3250,7 @@ rfbSendUpdateBuf(rfbClientPtr cl)
     if(cl->sock<0)
       return FALSE;
 
-//    printf("*******************tina: write to client, the RBF send update buf \n");//tina add
+    printf("*******************tina: write to client, the RBF send update buf \n");//tina add
     if (rfbWriteExact(cl, cl->updateBuf, cl->ublen) < 0) {
         rfbLogPerror("rfbSendUpdateBuf: write");
         rfbCloseClient(cl);

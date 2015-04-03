@@ -228,7 +228,7 @@ rfbSendSecurityTypeList(rfbClientPtr cl, int primaryType)
     buffer[0] = (unsigned char)size-1;
 
     /* Send the list. */
-    printf("*******************tina: write to client, the RBF send security type list  \n");//tina add
+    printf("*******************tina: write to client, the RBF send security type list \n");//tina add
     if (rfbWriteExact(cl, (char *)buffer, size) < 0) {
 	rfbLogPerror("rfbSendSecurityTypeList: write");
 	rfbCloseClient(cl);
