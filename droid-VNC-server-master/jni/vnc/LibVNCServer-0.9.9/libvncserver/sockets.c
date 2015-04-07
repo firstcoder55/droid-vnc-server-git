@@ -269,7 +269,9 @@ rfbCheckFds(rfbScreenInfoPtr rfbScreen,long usec)
     rfbClientPtr cl;
     int result = 0;
 
+   // printf("*******************tina: get in rfbCheckFds \n");//tina add
     if (!rfbScreen->inetdInitDone && rfbScreen->inetdSock != -1) {
+        printf("*******************tina: before rfbNewClientConnection() \n");//tina add
 	rfbNewClientConnection(rfbScreen,rfbScreen->inetdSock); 
 	rfbScreen->inetdInitDone = TRUE;
     }
@@ -304,7 +306,7 @@ rfbCheckFds(rfbScreenInfoPtr rfbScreen,long usec)
 	result += nfds;
 
 	if (rfbScreen->listenSock != -1 && FD_ISSET(rfbScreen->listenSock, &fds)) {
-
+           // printf("*******************tina: before rfbProcessNewConnection() \n");//tina add
 	    if (!rfbProcessNewConnection(rfbScreen))
                 return -1;
 
@@ -727,9 +729,9 @@ rfbWriteExact(rfbClientPtr cl,
 #define DEBUG_WRITE_EXACT //tina add
 #ifdef DEBUG_WRITE_EXACT //tina change
     rfbLog("WriteExact %d bytes\n",len);
-    for(n=0;n<len;n++)
+/*    for(n=0;n<len;n++)
 	    fprintf(stderr,"%02x ",(unsigned char)buf[n]);
-    fprintf(stderr,"\n");
+    fprintf(stderr,"\n");*/
 #endif //tina change
 
 #ifdef LIBVNCSERVER_WITH_WEBSOCKETS

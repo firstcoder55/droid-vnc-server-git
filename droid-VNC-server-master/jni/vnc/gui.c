@@ -96,7 +96,8 @@ int bindIPCserver()
 
 void *handle_connections()
 {
-  L("\nWaiting for a connection\n");
+  //L("\nWaiting for a connection\n");
+  L("\n################## handle_connections thread: Waiting for a connection\n");//tina add
   struct sockaddr_in from;
   int fromlen = sizeof(struct sockaddr_in);
   int n;

@@ -453,14 +453,17 @@ int main(int argc, char **argv)
       }
     }
 
+    L("\n****************************************Iint Grabber Method***************************************** ");//tina add
     //L("Initializing grabber method...\n");
     L("\nInitializing grabber method...\n");//tina add
     initGrabberMethod();
 
+    L("\n****************************************Init Input**************************************************");//tina add
     //L("Initializing virtual keyboard and touch device...\n");
     L("\nInitializing virtual keyboard and touch device...\n");//tina add
     initInput(); 
 
+    L("\n****************************************Init VNC Server*********************************************");//tina add
     //L("Initializing VNC server:\n");
     L("\nInitializing VNC server:\n");//tina add
     L("	width:  %d\n", (int)screenformat.width);
@@ -473,11 +476,13 @@ int main(int argc, char **argv)
       screenformat.redMax,screenformat.greenMax,screenformat.blueMax,screenformat.alphaMax);  
 
     initVncServer(argc, argv);
-    L("*****************tina: finish initVncServer \n");//tina add
 
+    L("\n****************************************Bind IPC Server*********************************************\n");//tina add
     bindIPCserver();
+    L("\n****************************************Send Server Stared******************************************");//tina add
     sendServerStarted();
 
+    L("\n****************************************chrck rhost*************************************************");//tina add
     if (rhost) {
       L("****************tina: rhost check");//tina add
       rfbClientPtr cl;
@@ -495,7 +500,7 @@ int main(int argc, char **argv)
       }
     }
 
-
+    L("\n****************************************while(1)***************************************************\n");//tina add
     while (1) {
         usec=(vncscr->deferUpdateTime+standby)*1000;
         //clock_t start = clock();
