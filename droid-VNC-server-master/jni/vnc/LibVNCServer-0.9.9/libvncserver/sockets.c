@@ -306,7 +306,8 @@ rfbCheckFds(rfbScreenInfoPtr rfbScreen,long usec)
 	result += nfds;
 
 	if (rfbScreen->listenSock != -1 && FD_ISSET(rfbScreen->listenSock, &fds)) {
-           // printf("*******************tina: before rfbProcessNewConnection() \n");//tina add
+            //not get into here, try to find the reasons //tina add
+            // printf("*******************tina: before rfbProcessNewConnection() \n");//tina add
 	    if (!rfbProcessNewConnection(rfbScreen))
                 return -1;
 
