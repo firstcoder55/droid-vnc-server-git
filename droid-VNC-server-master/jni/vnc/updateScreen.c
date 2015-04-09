@@ -85,7 +85,7 @@ void FUNCTION(void)
         }
       }
     }
-    printf("****************tina: 1 idle = %d\n", idle);//tina add
+    printf("update screen****************tina: 1 idle = %d\n", idle);//tina add
   }
   else if (rotation==90) {
     for (j = 0; j < vncscr->width; j++) {
@@ -178,15 +178,15 @@ void FUNCTION(void)
     }
   }
   
-  printf("****************tina: rotation = %d\n", rotation);//tina add
-  printf("****************tina: 2 idle = %d\n", idle);//tina add
+  printf("update screen****************tina: rotation = %d\n", rotation);//tina add
+  printf("update screen****************tina: 2 idle = %d\n", idle);//tina add
   if (!idle) {
     memcpy(vncbuf,a,screenformat.width*screenformat.height*screenformat.bitsPerPixel/CHAR_BIT);
 
     min_x--;
     //min_x--;
     min_y--;//tina change min_x-- to min_y--
-    printf("****************tina: min_y--  change\n");//tina add
+    printf("update screen****************tina: min_y--  change\n");//tina add
     max_x++;
     max_y++;
 

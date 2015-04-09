@@ -306,8 +306,7 @@ rfbCheckFds(rfbScreenInfoPtr rfbScreen,long usec)
 	result += nfds;
 
 	if (rfbScreen->listenSock != -1 && FD_ISSET(rfbScreen->listenSock, &fds)) {
-            //not get into here, try to find the reasons //tina add
-            // printf("*******************tina: before rfbProcessNewConnection() \n");//tina add
+            //rfbLog("*******************tina: rfbScreen->listenSock \n");//tina add
 	    if (!rfbProcessNewConnection(rfbScreen))
                 return -1;
 
@@ -317,7 +316,7 @@ rfbCheckFds(rfbScreenInfoPtr rfbScreen,long usec)
 	}
 
 	if (rfbScreen->listen6Sock != -1 && FD_ISSET(rfbScreen->listen6Sock, &fds)) {
-
+	    //printf("*******************tina: rfbScreen->listen6Sock \n");//tina add
 	    if (!rfbProcessNewConnection(rfbScreen))
                 return -1;
 
@@ -327,6 +326,7 @@ rfbCheckFds(rfbScreenInfoPtr rfbScreen,long usec)
 	}
 
 	if ((rfbScreen->udpSock != -1) && FD_ISSET(rfbScreen->udpSock, &fds)) {
+	    //printf("*******************tina: rfbScreen->udpsock \n");//tina add
 	    if(!rfbScreen->udpClient)
 		rfbNewUDPClient(rfbScreen);
 	    if (recvfrom(rfbScreen->udpSock, buf, 1, MSG_PEEK,
@@ -394,6 +394,8 @@ rfbProcessNewConnection(rfbScreenInfoPtr rfbScreen)
     socklen_t addrlen = sizeof(addr);
     fd_set listen_fds; 
     int chosen_listen_sock = -1;
+
+    rfbLog("*******************tina: get into rfbProcessNewConnection \n");//tina add
 
     /* Do another select() call to find out which listen socket
        has an incoming connection pending. We know that at least 

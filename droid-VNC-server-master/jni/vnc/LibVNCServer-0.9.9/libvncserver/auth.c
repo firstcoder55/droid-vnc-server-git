@@ -113,6 +113,7 @@ rfbVncAuthSendChallenge(rfbClientPtr cl)
     /* 4 byte header is alreay sent. Which is rfbSecTypeVncAuth 
        (same as rfbVncAuth). Just send the challenge. */
     rfbRandomBytes(cl->authChallenge);
+    printf("*******************tina: write to client, auth challenge \n");//tina add
     if (rfbWriteExact(cl, (char *)cl->authChallenge, CHALLENGESIZE) < 0) {
         rfbLogPerror("rfbAuthNewClient: write");
         rfbCloseClient(cl);
